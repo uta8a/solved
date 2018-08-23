@@ -18,7 +18,7 @@ using namespace std;
 int dx[4]={1,-1,0,0};
 int dy[4]={0,0,1,-1};
 //---------------------------
-
+int a[10],b[10];
 int main(){
   std::ios::sync_with_stdio(false);
   std::cin.tie(0);
@@ -26,6 +26,21 @@ int main(){
   ifstream in("input.txt");
   cin.rdbuf(in.rdbuf());
 
-  
+  int n,c,s;cin>>n>>c>>s;
+  REP(i,n){
+    cin>>a[i]>>b[i];
+  }
+  int up = (c+s-1)/s; //sec
+  ll sm=0LL;
+  for(int i=0;i<=up;i++){
+    sm+=s;
+    if(sm>=c){
+      P(i);
+      return 0;
+    }
+    for(int j=0;j<n;j++){
+      
+    }
+  }
   return 0;
 }
