@@ -18,29 +18,41 @@ using namespace std;
 int dx[4]={1,-1,0,0};
 int dy[4]={0,0,1,-1};
 //---------------------------
-int a[10],b[10];
+ll a[10],b[10];
 int main(){
   std::ios::sync_with_stdio(false);
   std::cin.tie(0);
 
-  ifstream in("input.txt");
-  cin.rdbuf(in.rdbuf());
+  // ifstream in("input.txt");
+  // cin.rdbuf(in.rdbuf());
 
   int n,c,s;cin>>n>>c>>s;
   REP(i,n){
     cin>>a[i]>>b[i];
   }
-  int up = (c+s-1)/s; //sec
-  ll sm=0LL;
-  for(int i=0;i<=up;i++){
-    sm+=s;
-    if(sm>=c){
-      P(i);
-      return 0;
+  vector<int> V;
+  REP(i,n)V.push_back(i);
+  ll ret = (c+s-1)/s; //sec
+  int x;
+  do {
+    int step=0;
+    int cur=0; // 個数
+    int add=s;
+    x=0;
+    while(cur<c){ // 個数がcを超えない限り
+      step++;
+      cur+=add;
+      if(cur>=c)break;
+      while(x<n && a[V[x]] <=cur) {// 工場を購入した場合を考えていく
+        cur-=a[V[x]];//購入して減る
+        add+=b[V[x]];//毎秒増える個数のupdate
+        x++;
+        ret=min(ret, (ll)(step+(c-cur+add-1)/add)); // 貯めて買うより買える瞬間に買ったほうがよい。
+      }
     }
-    for(int j=0;j<n;j++){
-      
-    }
-  }
+  }while(next_permutation(V.begin(), V.end()));
+
+  P(ret);
+
   return 0;
 }
