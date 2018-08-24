@@ -18,7 +18,6 @@ using namespace std;
 int dx[4]={1,-1,0,0};
 int dy[4]={0,0,1,-1};
 //---------------------------
-
 int main(){
   std::ios::sync_with_stdio(false);
   std::cin.tie(0);
@@ -26,6 +25,13 @@ int main(){
   ifstream in("input.txt");
   cin.rdbuf(in.rdbuf());
 
-  
+  string s;cin>>s;
+  int ans=0;
+  REP(i,(int)s.size()) {
+    if((i>1) && (s[i] == s[i-2]))s[i]='*';//1
+    if((i>0) && (s[i] == s[i-1]))s[i]='*';//2 1と2逆にしても通る
+    if(s[i]=='*')ans++;
+  }
+  P(ans);
   return 0;
 }
