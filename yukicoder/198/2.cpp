@@ -34,18 +34,33 @@ int main(){
 
   ll y,x;cin>>y>>x;
   string ans;
-  if(is_prime(y) || is_prime(x)){
-    ans="First";
+  ll cnt=0LL;
+  // 1,2のコーナーケース処理
+  /*
+  x=1 or y=1: コーナーケース
+  残りは最初のp,pを除いてあげて
+  残りは開始地点が偶数か奇数か(終端の素数は奇数になるので)を見てやればOK
+  */
+  if(y<=2 || x<=2){
+    ans="Second";
+    //どうがんばってもFirstは素数マスに動かさざるを得ない
+  }else if(is_prime(x) && is_prime(y)){
+    ans="Second";
   }else{
-    if(y%2==0 && x%2==0){
-      ans="Second";
-    }else if(y%2==1 && x%2==1){
+    while(is_prime(x)){
+      cnt++;
+      x++;
+    }
+    while(is_prime(y)){
+      cnt++;
+      y++;
+    }
+    if(cnt%2==0){
       ans="Second";
     }else{
       ans="First";
     }
   }
   P(ans);
-
   return 0;
 }
