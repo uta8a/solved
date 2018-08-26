@@ -23,9 +23,10 @@ int main(){
   std::ios::sync_with_stdio(false);
   std::cin.tie(0);
 
-  ifstream in("input.txt");
-  cin.rdbuf(in.rdbuf());
+  // ifstream in("input.txt");
+  // cin.rdbuf(in.rdbuf());
 
-  
+  int n,i;cin>>n>>i;
+  P(n-i+1);
   return 0;
 }

@@ -1,31 +1,66 @@
 #include <bits/stdc++.h>
-//---------------------------
 using namespace std;
-//---------------------------
-#define REP(i,n) for(int i = 0; i < (n); i++)
-#define P(x) cout << (x) << "\n"
-#define fcout cout << fixed << setprecision(18)
 
-#define MOD 1000000007 // 1e9+7
-#define PI 3.1415926535
-/*
-3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679
-*/
-#define ll long long int // 10^18
-#define INF 1000000001 // 1e9+1
-#define LINF 1000000000000000001 // 1e18+1
+struct BIT {
+  long long n;
+  vector<long long> dat;
 
-int dx[4]={1,-1,0,0};
-int dy[4]={0,0,1,-1};
-//---------------------------
+  void init(long long n_input) {
+    n = n_input+1;
+    dat.resize(n+1);
+    for(int i=0;i<=n;i++)dat[i]=0;
+  }
 
-int main(){
-  std::ios::sync_with_stdio(false);
-  std::cin.tie(0);
+  long long sum(long long i){
+    long long s=0;
+    while(i>=0){
+      s+=dat[i];
+      i=(i&(i+1)) - 1;
+    }
+    return s;
+  }
 
-  ifstream in("input.txt");
-  cin.rdbuf(in.rdbuf());
+  void add(long long i, long long x){
+    while(i<=n){
+      dat[i]+=x;
+      i |= i+1;
+    }
+  }
+};
 
-  
+int main() {
+  int i;
+  long long N;
+  cin>>N;
+  vector<int> A(N), sortedA(N);
+  for(i=0;i<N;i++){
+    cin>>A[i];
+    sortedA[i]=A[i];
+  }
+  sort(sortedA.begin(), sortedA.end());
+  int ub=N;
+  int lb=0;
+  BIT bit;
+
+  long long border = ((N*(N+1)/2)+1)/2;
+  while(ub-lb>1) {
+    int mid=(ub+lb)/2;
+    int midn=sortedA[mid];
+    bit.init(2*N+1);
+    int sum=0;
+    bit.add(sum+N, 1);
+    long long result=0;
+    for(i=0;i<N;i++){
+      sum+=A[i]>=midn ? 1:-1;
+      result+=bit.sum(sum+N);
+      bit.add(sum+N, 1);
+    }
+    if(result>=border){
+      lb=mid;
+    }else{
+      ub=mid;
+    }
+  }
+  cout<<sortedA[lb]<<endl;
   return 0;
 }

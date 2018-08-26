@@ -23,9 +23,43 @@ int main(){
   std::ios::sync_with_stdio(false);
   std::cin.tie(0);
 
-  ifstream in("input.txt");
-  cin.rdbuf(in.rdbuf());
+  // ifstream in("input.txt");
+  // cin.rdbuf(in.rdbuf());
 
-  
+  int h,w;cin>>h>>w;
+  vector<string> a,b;
+  REP(i,h){
+    string aa;cin>>aa;
+    a.push_back(aa);
+  }
+  int y=0,x=0;
+  REP(i,h){
+    REP(j,w){
+      if(a[i][j]=='#'){
+        b.push_back(a[i]);
+        y++;
+        break;
+      }
+    }
+  }
+  // REP(i,y){
+  //   P(b[i]);
+  // }
+  vector<int> v;
+  REP(i,w){
+    REP(j,y){
+      if(b[j][i]=='#'){
+        v.push_back(i);
+        break;
+      }
+    }
+  }
+  REP(i,y){
+    string s;
+    for(auto index:v){
+      s+=b[i][index];
+    }
+    P(s);
+  }
   return 0;
 }
