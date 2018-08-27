@@ -1,53 +1,72 @@
+// https://beta.atcoder.jp/contests/summerfes2018-div1/submissions/3071681
 #include <bits/stdc++.h>
-//---------------------------
+
 using namespace std;
-//---------------------------
-#define REP(i,n) for(int i = 0; i < (n); i++)
-#define P(x) cout << (x) << "\n"
-#define fcout cout << fixed << setprecision(18)
 
-#define MOD 1000000007 // 1e9+7
-#define PI 3.1415926535
-/*
-3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679
-*/
-#define ll long long int // 10^18
-#define INF 1000000001 // 1e9+1
-#define LINF 1000000000000000001 // 1e18+1
+using ll = long long;
 
-int dx[4]={1,-1,0,0};
-int dy[4]={0,0,1,-1};
-//---------------------------
-ll calc(int a,int b,int p){
-  if(b==0){
-    return 1;
-  }else if(b%2==0){
-    ll d=calc(a,b/2,p);
-    return (d*d)%p;
-  }else if(b%2==1){
-    return (a*calc(a,b-1,p))%p;
-  }
+map<ll, int> prime_factor(ll n) {
+  // whileでnからiがなくなるまで割っているので、res[i]は素数iの指数の値を示す。
+    map<ll, int> res;
+    for (ll i = 2; i * i <= n; i++) {
+        while (n % i == 0) {
+            ++res[i];
+            n /= i;
+        }
+    }
+    // nが素数のとき、上の過程で取り除かれないのでそれをチェック
+    if (n != 1) res[n] = 1;
+    return res;
 }
-int main(){
-  std::ios::sync_with_stdio(false);
-  std::cin.tie(0);
 
-  ifstream in("input.txt");
-  cin.rdbuf(in.rdbuf());
+ll euler(ll mod) {
+  // トーシェント関数
+  // 一つ目のforの中ではp^e-1(p - 1)をかけている
+    map<ll, int> pf = prime_factor(mod);
+    ll res = 1;
+    for (auto& p : pf) {
+        ll tmp = 1;
+        for (int i = 0; i < p.second - 1; i++) {
+            tmp *= p.first;
+        }
+        res *= tmp * (p.first - 1);
+    }
+    return res;
+}
 
-  ll a,m,k;cin>>a>>m>>k;
-  bool flag=true;
-  ll cur=1;
-  ll index=0;
-  ll cnt=0;
-  while(flag){
-    ll now=cur;
-    cur=calc(a,cur%(m-1),m);
-    P(cur);
-    if(now==cur)break;
-    index++;
-    cnt+=cur;
-    cnt%=MOD;
-  }
-  return 0;
+ll modpow(ll x, ll n, ll mod) {
+  // 繰り返し二乗法による
+    if (x == 0) return 0;
+    ll res = 1;
+    while (n > 0) {
+      // 奇数ならn&1==1になる。ここで奇数の一個分を掛ける処理をする
+        if (n & 1) res = res * x % mod;
+        x = x * x % mod;
+        n >>= 1; //1bitシフトして1/2にする
+    }
+    return res;
+}
+
+ll solve(ll x, ll n, ll mod) {
+  // x↑↑n modの値(テトレーションの剰余)
+    if (mod == 1) return 0;
+    if (n == 0) return 1;
+    ll n2 = solve(x, n - 1, euler(mod));
+    return modpow(x % mod, (n2 == 0 ? mod : n2), mod);
+}
+
+int main() {
+    cin.tie(0);
+    ios::sync_with_stdio(false);
+    ll a, m, k;
+    cin >> a >> m >> k;
+
+    ll ans = 0;
+    for (ll i = 0; i < min(64LL, k - 1); i++) {
+        (ans += solve(a, i, m)) %= m;
+    }
+
+    (ans += max(k - 1 - 64, 0LL) % m * solve(a, 63, m) % m) %= m;
+    cout << ans << endl;
+    return 0;
 }

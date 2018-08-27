@@ -33,34 +33,55 @@ int main(){
   // cin.rdbuf(in.rdbuf());
 
   ll y,x;cin>>y>>x;
-  string ans;
-  ll cnt=0LL;
-  // 1,2のコーナーケース処理
+  bool FirstFlag=true;
   /*
   x=1 or y=1: コーナーケース
   残りは最初のp,pを除いてあげて
   残りは開始地点が偶数か奇数か(終端の素数は奇数になるので)を見てやればOK
+  （コーナーケースを除いた）今の座標がどちらも3以上の場合
+  (偶数,偶数) ⇛ 動くとどちらかが奇数になるため負ける可能性がある。
+  (奇数,偶数) , (偶数,奇数) ⇛ （偶数、偶数）に移動できるため、負けることはない。
+  (奇数,奇数) ⇛ どちらか偶数に移動できるため負ける可能性がない。
+  tip: 表で考える、偶奇に着目する、丁寧にコーナーケースを処理する(2次元なので4通りとかになる)
   */
-  if(y<=2 || x<=2){
-    ans="Second";
-    //どうがんばってもFirstは素数マスに動かさざるを得ない
-  }else if(is_prime(x) && is_prime(y)){
-    ans="Second";
-  }else{
-    while(is_prime(x)){
-      cnt++;
-      x++;
-    }
-    while(is_prime(y)){
-      cnt++;
-      y++;
-    }
-    if(cnt%2==0){
-      ans="Second";
+
+
+  // まずはx<=2 or y<=2 の場合を処理していく
+  if(x<=2 && y>2) {
+    // 2のときは右に進むと3が素数でひっかかり、上に進むと2が素数でひっかかる
+    if(x==2){
+      FirstFlag = false;
     }else{
-      ans="First";
+      FirstFlag = y%2==0 ? false:true;
+    }
+  }else if(x>2 && y<=2){
+    if(y==2){
+      FirstFlag = false;
+    }else{
+      FirstFlag = x%2==0 ? false:true;
+    }
+  }else if(x<=2 && y<=2){
+    FirstFlag = false;
+  }else{
+    if(x%2==0){
+      if(y%2==0){
+        FirstFlag=false;
+      }else{
+        FirstFlag=true;
+      }
+    }else{
+      if(y%2==0){
+        FirstFlag=true;
+      }else{
+        FirstFlag=false;
+      }
     }
   }
-  P(ans);
+  if(FirstFlag){
+    P("First");
+  }else{
+    P("Second");
+  }
+
   return 0;
 }
