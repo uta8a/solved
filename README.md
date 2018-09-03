@@ -11,6 +11,7 @@
 # yukicoder
 
 # Codeforces
+[satanicさんのツイート](https://twitter.com/satanic0258/status/1033860832508043265)
 - こどふぉ，div分けがコンテストで違っていて
 - div1+div2回:全員対象(AGCみたいな)
 - div1/div2回:～1899/1900～(ABC/ARCみたいな)
@@ -22,7 +23,10 @@
 - ～1899がdiv2,
 - 1900～がdiv1
 
-# いつか解くリスト
+# その他のコンテスト
+- [satanicさんのツイート](https://twitter.com/satanic0258/status/1033695703552249856)を参考に検討
+
+# 積み
 - [summerfes2018](https://beta.atcoder.jp/contests/summerfes2018-div1)
 - [CF#506div3](http://codeforces.com/contest/1029)
 - [BIT](https://yukicoder.me/problems/no/728/editorial)
