@@ -30,3 +30,8 @@
 - [summerfes2018](https://beta.atcoder.jp/contests/summerfes2018-div1)
 - [CF#506div3](http://codeforces.com/contest/1029)
 - [BIT](https://yukicoder.me/problems/no/728/editorial)
+- [ + 記事にする]
+- [いろはちゃんとマス目](https://beta.atcoder.jp/contests/abc042/tasks/arc058_b)
+- [アンバランス](https://beta.atcoder.jp/contests/abc043/tasks/arc059_b)
+- [Shik and Stone](https://beta.atcoder.jp/contests/agc007/tasks/agc007_a) 逆順走査
+- 
