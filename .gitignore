@@ -1,3 +1,6 @@
 *.exe
 *.txt
 .vscode
+*.o
+*.hi
+main
