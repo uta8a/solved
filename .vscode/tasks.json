@@ -43,6 +43,22 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "Download testcases",
+            "detail": "oj: download test cases",
+            "type": "shell",
+            "command": "rm -rf test && oj download ${input:url}",
+            "options": {
+                "cwd": "${workspaceFolder}/arena"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "url",
+            "type": "promptString",
+            "description": "Testcase URL for oj"
         }
     ]
 }

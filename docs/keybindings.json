@@ -5,4 +5,10 @@
         "args": "test",
         "when": "config.workspaceKeybindings.solved_workspace.enabled",
     },
+    {
+        "key": "cmd+shift+t",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Download testcases",
+        "when": "config.workspaceKeybindings.solved_workspace.enabled",
+    },
 ]
