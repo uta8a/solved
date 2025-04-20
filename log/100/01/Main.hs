@@ -25,3 +25,5 @@ getInts :: IO [Int]
 getInts = map read . words <$> getLine :: IO [Int]
 
 -- }}}
+
+-- https://atcoder.jp/contests/abc402/submissions/65063255
