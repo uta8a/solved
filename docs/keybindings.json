@@ -1,0 +1,8 @@
+[
+    {
+        "key": "cmd+shift+b",
+        "command": "workbench.action.tasks.runTask",
+        "args": "test",
+        "when": "config.workspaceKeybindings.solved_workspace.enabled",
+    },
+]

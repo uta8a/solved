@@ -23,5 +23,4 @@ dist-*
 *.prof
 .stack-work/
 *.txt
-.vscode
 arena/test/
