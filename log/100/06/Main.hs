@@ -46,3 +46,5 @@ getStringArray = do
   return $ listArray @UArray (1, BS.length s) (BS.unpack s)
 
 -- }}}
+
+-- https://atcoder.jp/contests/abc403/submissions/65368416
